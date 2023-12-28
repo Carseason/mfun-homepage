@@ -4,7 +4,7 @@ ACTION=${1}
 shift 1
 
 get_image() {
-  IMAGE_NAME="carseason/mfun:latest"
+  IMAGE_NAME="carseason/mfun:laster"
 }
 
 do_install() {
