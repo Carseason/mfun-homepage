@@ -2,7 +2,7 @@ msgid ""
 msgstr "Content-Type: text/plain; charset=UTF-8"
 
 
-msgid "Mfun is an ultimedia program."
+msgid "Mfun is an multimedia program."
 msgstr "Mfun 是一个轻量的影音媒体程序"
 
 msgid "Config path"
