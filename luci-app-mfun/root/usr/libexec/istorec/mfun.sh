@@ -20,6 +20,7 @@ do_install_detail() {
   local config_path=`uci get mfun.@mfun[0].config_path 2>/dev/null`
   local tmp_path=`uci get mfun.@mfun[0].tmp_path 2>/dev/null`
   local port=`uci get mfun.@mfun[0].port 2>/dev/null`
+  local dev
 
   if [ -z "$config_path" ]; then
       echo "config path is empty!"
@@ -35,9 +36,27 @@ do_install_detail() {
   local cmd="docker run --restart=unless-stopped -d \
     -v \"$config_path:/mfun/store\" \
     -v \"$tmp_path:/mfun/tmp\" \
-    -v \"/mnt:/mnt\" \
+    --dns=172.17.0.1 \
     -p $port:8990"
 
+  if [ -e "/dev/rga" ]; then
+    cmd="$cmd \
+    -t \
+    --privileged "
+    for dev in iep rga dri dma_heap mali mali0 mpp_service mpp-service vpu_service vpu-service \
+        hevc_service hevc-service rkvdec rkvenc avsd vepu h265e ; do
+      [ -e "/dev/$dev" ] && cmd="$cmd --device /dev/$dev"
+    done
+  elif [ -d /dev/dri ]; then
+    cmd="$cmd \
+    --device /dev/dri:/dev/dri \
+    --privileged "
+  fi
+
+  local tz="`uci get system.@system[0].zonename | sed 's/ /_/g'`"
+  [ -z "$tz" ] || cmd="$cmd -e TZ=$tz"
+
+  cmd="$cmd -v /mnt:/mnt"
   mountpoint -q /mnt && cmd="$cmd:rslave"
   cmd="$cmd --name mfun \"$IMAGE_NAME\""
 
