@@ -3,6 +3,7 @@ LuCI - Lua Configuration Interface
 ]]--
 
 local taskd = require "luci.model.tasks"
+local mfun_model = require "luci.model.mfun"
 local m, s, o
 
 m = taskd.docker_map("mfun", "mfun", "/usr/libexec/istorec/mfun.sh",
@@ -24,14 +25,27 @@ o.rmempty = false
 o.default = "8990"
 o.datatype = "port"
 
+local blocks = mfun_model.blocks()
+local home = mfun_model.home()
+
 o = s:option(Value, "config_path", translate("Config path").."<b>*</b>")
 o.rmempty = false
-o.default = ""
 o.datatype = "string"
+
+local paths, default_path = mfun_model.find_paths(blocks, home, "Configs")
+for _, val in pairs(paths) do
+  o:value(val, val)
+end
+o.default = default_path
 
 o = s:option(Value, "tmp_path", translate("Tmp path").."<b>*</b>")
 o.rmempty = false
-o.default = ""
 o.datatype = "string"
+
+local paths, default_path = mfun_model.find_paths(blocks, home, "Caches")
+for _, val in pairs(paths) do
+  o:value(val, val)
+end
+o.default = default_path
 
 return m
