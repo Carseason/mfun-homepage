@@ -7,7 +7,8 @@ local m, s, o
 
 m = taskd.docker_map("mfun", "mfun", "/usr/libexec/istorec/mfun.sh",
 	translate("Mfun"),
-	translate("Mfun is an ultimedia program.")
+	translate("Mfun is an multimedia program.")
+	.. '<br/>'
 	.. translate("Default User") 
 	.. ': admin password')
 
