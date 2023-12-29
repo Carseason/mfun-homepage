@@ -1,7 +1,6 @@
 msgid ""
 msgstr "Content-Type: text/plain; charset=UTF-8"
 
-
 msgid "Mfun is an multimedia program."
 msgstr "Mfun 是一个轻量的影音媒体程序"
 
@@ -19,6 +18,9 @@ msgstr "HTTP 端口"
 
 msgid "Service Status"
 msgstr "服务状态"
+
+msgid "Default User"
+msgstr "默认用户"
 
 msgid "Mfun status:"
 msgstr "Mfun 的状态信息如下："

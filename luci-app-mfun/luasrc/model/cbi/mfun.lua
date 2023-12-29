@@ -7,7 +7,9 @@ local m, s, o
 
 m = taskd.docker_map("mfun", "mfun", "/usr/libexec/istorec/mfun.sh",
 	translate("Mfun"),
-	translate("Mfun is an ultimedia program."))
+	translate("Mfun is an ultimedia program.")
+	.. translate("Default User") 
+	.. ': admin password')
 
 s = m:section(SimpleSection, translate("Service Status"), translate("Mfun status:"))
 s:append(Template("mfun/status"))
