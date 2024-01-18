@@ -112,6 +112,9 @@ jobs:
         run: |
           cd ~/openwrt-sdk
           ./scripts/feeds update -a
+          grep -lFr '$(call KernelPackage,' feeds/base/package/linux | xargs -rn1 sed -i 's/ FILES:=/ XFILES:=/g' || true
+          grep -lFr '$(call KernelPackage,' feeds/base/package/kernel | xargs -rn1 sed -i 's/ FILES:=/ XFILES:=/g' || true
+          patch -d feeds/luci -p1 -f -N -i ${{ github.workspace }}/.github/workflows/luci.patch
           ./scripts/feeds install -a
 
       - name: Copy Package

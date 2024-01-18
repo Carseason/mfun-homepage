@@ -2,7 +2,7 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_VERSION:=0.0.2
+PKG_VERSION:=0.0.1
 PKG_RELEASE:=
 
 LUCI_TITLE:=LuCI support for mfun
